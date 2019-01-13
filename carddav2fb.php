@@ -260,7 +260,9 @@ class CardDAV2FB
             // request email address and type
             if($vcard_obj->nickname)
             {
-                print "----> nickname: " . $vcard_obj->nickname . "\n";
+                print "----> nickname: " . "\n";
+                print_r( $vcard_obj->nickname);
+                print "\n";
             }
 
 
