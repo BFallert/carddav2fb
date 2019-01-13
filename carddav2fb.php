@@ -2,17 +2,17 @@
 /**
  * CardDAV to FritzBox! XML (automatic upload)
  * inspired by http://www.wehavemorefun.de/fritzbox/Hochladen_eines_MySQL-Telefonbuchs
- * 
- * Requirements: 
+ *
+ * Requirements:
  *   php5, php5-curl, php5-ftp
- * 
- * used libraries: 
+ *
+ * used libraries:
  *  *  vCard-parser <https://github.com/nuovo/vCard-parser> (LICNECE: unknown)
  *  *  CardDAV-PHP <https://github.com/graviox/CardDAV-PHP>(LICENCE: AGPLv3)
  *  *  fritzbox_api_php <https://github.com/carlos22/fritzbox_api_php> (LICENCE: CC-by-SA 3.0)
- * 
+ *
  * LICENCE (of this file): MIT
- * 
+ *
  * Autors: Karl Glatz (original author)
  *         Martin Rost
  *         Jens Maus <mail@jens-maus.de>
@@ -216,6 +216,11 @@ class CardDAV2FB
         // retrieve data from the CardDAV server now
         $xmldata = $carddav->get();
 
+
+        // DEBUG: print out the email address on the console
+        print xmldata.": ".$xmldata."\n";
+
+
         // identify if we received UTF-8 encoded data from the
         // CardDAV server and if not reencode it since the FRITZ!Box
         // requires UTF-8 encoded data
@@ -414,7 +419,7 @@ class CardDAV2FB
                 break;
               }
             }
-          } 
+          }
           else
             $add_entry = 1;
 
@@ -424,7 +429,7 @@ class CardDAV2FB
             {
               $prio = 0;
               $quickdial = null;
-              
+
               if(!is_array($t) || empty($t['type']))
               {
                 $type = "mobile";
@@ -433,7 +438,7 @@ class CardDAV2FB
               else
               {
                 $phone_number = $t['value'];
-                
+
                 $phone_number_clean = preg_replace("/[^0-9+]/", "", $phone_number);
                 foreach($quick_dial_arr as $qd_phone_nr => $value)
                 {
@@ -691,7 +696,7 @@ class CardDAV2FB
       	print " INFO: Different versions ==> Changes in phonebook." . PHP_EOL . " INFO: Changes dedected! Continue with upload." . PHP_EOL;
       }
 	  else
-      return 0;  
+      return 0;
     }
     // now we upload the photo jpgs first being stored in the
     // temp directory.
@@ -792,7 +797,7 @@ class CardDAV2FB
     }
     else
       print " ERROR: couldn't connect to FTP server '" . $ftp_server . "'." . PHP_EOL;
-    
+
     // lets post the phonebook xml to the FRITZ!Box
     print " Uploading Phonebook XML to " . $this->config['fritzbox_ip'] . PHP_EOL;
     try
