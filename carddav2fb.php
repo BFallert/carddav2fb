@@ -257,6 +257,16 @@ class CardDAV2FB
           $orgname = '';
           $formattedname = '';
 
+            // request email address and type
+            if($vcard_obj->nickname)
+            {
+                print "----> nickname: " . $vcard_obj->nickname . "\n";
+            }
+
+
+
+
+
           // Build name Parts if existing ans switch to true in config
           if(isset($name_arr['prefixes']) and $this->config['prefix'])
             $prefix = trim($name_arr['prefixes']);
