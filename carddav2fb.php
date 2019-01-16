@@ -532,7 +532,7 @@ class CardDAV2FB
             // if nickname exists an not empty: duplicate entrie with nickname as key
             if (!empty($nickname)) {
               // DEBUG: print if nickname is not empty
-              // print '#######>' . $name . " " . $nickname . "\n";
+              // print '#######> name: ' . $name . " nickname: " . $nickname . "\n";
               $entries[] = array("realName" => $nickname, "telephony" => $phone_no, "email" => $email_add, "vip" => $vip, "photo" => $photo, "photo_data" => $vcard_obj->photo);
             }
           }
