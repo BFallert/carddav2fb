@@ -100,6 +100,7 @@ flush(); // in case this script runs by php-cgi
 // ---------------------------------------------
 // Class definition
 class CardDAV2FB
+
 {
   protected $entries = array();
   protected $fbxml = "";
@@ -256,14 +257,19 @@ class CardDAV2FB
           $suffix = '';
           $orgname = '';
           $formattedname = '';
+          $nickname = '';
 
-            // request email address and type
-            if($vcard_obj->nickname)
-            {
-                print "----> nickname: " . "\n";
-                print_r( $vcard_obj->nickname);
-                print "\n";
-            }
+          // if a nickname exists
+          if($vcard_obj->nickname)
+          {
+              // DEBUG: print name and nickname
+              //print "----> nickname: " . "\n";
+              //print trim($name_arr['firstname']) . " " . trim($name_arr['lastname']) . "\n";
+              //print_r( $vcard_obj->nickname);
+              //print "\n";
+              $nickname = trim($vcard_obj->nickname[0][0]);
+              //print "~~~~~>Nickname: " . $nickname . "\n";
+          }
 
 
 
@@ -522,6 +528,13 @@ class CardDAV2FB
               }
             }
             $entries[] = array("realName" => $name, "telephony" => $phone_no, "email" => $email_add, "vip" => $vip, "photo" => $photo, "photo_data" => $vcard_obj->photo);
+
+            // if nickname exists an not empty: duplicate entrie with nickname as key
+            if (!empty($nickname)) {
+              // DEBUG: print if nickname is not empty
+              // print '#######>' . $name . " " . $nickname . "\n";
+              $entries[] = array("realName" => $nickname, "telephony" => $phone_no, "email" => $email_add, "vip" => $vip, "photo" => $photo, "photo_data" => $vcard_obj->photo);
+            }
           }
         }
 
